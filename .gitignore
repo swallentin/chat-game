@@ -46,3 +46,4 @@ eclipse
 server.pid
 node_modules
 foundation
+.jhw-cache
