@@ -1,0 +1,74 @@
+mixin liveReload()
+  - if( livereload )
+    | <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+
+mixin chatBubble(profile, text)
+  div.quote
+    div.avatar
+      img(alt='Two', src=profile.imageUrl)
+    div(class='box-container card bubble')
+      div.tail
+      p(class='beveled quoted')
+        span.start-quote "
+        | #{text}
+        span.end-quote "
+      p(class='attribution') #{profile.userName}. from #{profile.origin}
+
+mixin gameBubble(profile, questions, lang)
+  div.quote
+    div.avatar
+      img(alt='Two', src=profile.imageUrl)
+    div(class='box-container card bubble')
+      div.tail
+      p(class='attribution') Choose what to say!
+      form(class='')
+        a(type='button', id='answer_a', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet.
+          div.rating-container
+            i.icon-star.icon-yellow
+        a(type='button', id='answer_b', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          div.rating-container
+            i.icon-star.icon-yellow
+            i.icon-star.icon-yellow
+        a(type='button', id='answer_c', class='button btn-primary btn-large choose-answer last') - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mauris ipsum, feugiat vel tristique a, sodales sed lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.
+          div.rating-container
+            i.icon-star.icon-yellow
+            i.icon-star.icon-yellow
+            i.icon-star.icon-yellow
+
+mixin record(profile)
+  div.game-action-area
+    div.quote
+      div.avatar
+        img(alt='Two', src=profile.imageUrl)
+      div(class='box-container card bubble')
+        div.tail
+        a(type='button', id='answer_a', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet.
+          div.rating-container
+            i.icon-star.icon-yellow
+
+        p(class='attribution') Translate to English, and record your translation!
+        div.record
+            i.icon-play-circle
+            i.icon-play
+            a(type='button', class='button btn-primary btn-large send-recording') Send your recording
+
+
+mixin gameState()
+  div.game-state.btn-inverse
+    div.game-info.left
+      mixin avatar('http://www.dummyimage.com/50x50/0056cc/ffffff')
+      span.text 12 "Fashion English"
+    div.game-info.right.game-status
+      mixin avatar('/img/profiles/c.jpg')
+      mixin avatar('/img/profiles/d.jpg')
+      span.text 0x
+      i.icon-star.icon-yellow.game-score
+
+mixin avatar(src)
+  div.avatar
+    img(src=src)
+
+mixin chooseWhatToSay()
+  div.game-action-area
+    mixin gameBubble({imageUrl: '/img/profiles/d.jpg', userName: 'John. D', origin: 'Sweden'}, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et ullamcorper ipsum.")
+

@@ -1,0 +1,1 @@
+{"Todo model":[1],"when instantiated":[9],"should return the collection URL":[29],"when no id is set":[28,34],"should exhibit attribute":[11],"should return the collection URL and id":[35],"url":[20],"should set the priority by default":[15],"should not save when title is empty":[41]}

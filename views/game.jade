@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  div.row
+    div(class='span9', id='quotes')
+      h4 Game View - State - Record - Step 1 - Click to record
+      div.game-container
+        mixin gameState()
+
+      h4 Game View - State - Record - Step 2a - Recording succesful
+      div.game-container
+        mixin gameState()    
+        mixin record({imageUrl: '/img/profiles/a.jpg'})
+      h4 Game View - State - Choose What to say
+      div.game-container
+        mixin gameState()
+        mixin chooseWhatToSay()
+      h4 Game View - State - Record - Failed
+      h4 Game View - State - Send your recording
+      h4 Game View - State - Choose an answer
+      h4 Game View - State - Choose an answer - Success
+    div.span3
+      h4 Games - List
+        ul(class='list games-list')
+        div(class='game game-item')
+      
