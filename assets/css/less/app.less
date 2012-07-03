@@ -1,0 +1,255 @@
+body {
+	padding: 50px;
+	font-family: "Lucida Grande",Tahoma,Verdana,Arial,sans-serif;
+	font-size: 13px;
+	line-height: 20px;
+	background: url('/img/background.png') repeat;
+}
+
+a {
+  color: #00B7FF;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "MuseoSlab-500","Lucida Grande",tahoma;
+}
+
+table {
+	table-layout:fixed;
+}
+
+td {
+	  white-space: nowrap;
+	  overflow: auto;
+}
+
+@import "game-state-info.less";
+@import "games-listing.less";
+@import "game-action.less";
+
+.box-container {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.quotes .quote {
+	margin: 0 0 10px;
+	position: relative;
+}
+
+.quotes .quote .avatar {
+	width: 50px;
+	height: 50px;
+	float: left;
+	left: 0px;
+	position: absolute;
+	padding: 3px;
+	background: #FFF;
+	border: 1px solid #bbb;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+	-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+	box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.quotes .quote .avatar img {
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	width: 50px;
+	height: 50px;
+}
+
+/* Game Module */
+
+
+
+
+.quotes .quote .bubble {
+	padding: 15px;
+	margin-left: 75px;
+	background-color: #fff;
+	background-repeat: repeat-x;
+	border: 1px solid #bbb;
+	position: relative;
+}
+
+.box-container.card {
+	background: #FFF;
+	margin-bottom: 11px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #cccccc;
+	position: relative;
+}
+
+
+.quotes .quote .quoted {
+	font-family: Georgia, Cambria , "Times New Roman",Times,serif;
+	font-style: italic;
+	font-size: 0.9em;
+	line-height: 1.4em;
+	padding: 0px 30px 10px 30px;
+	position: relative;
+}
+
+.quotes .quote .start-quote {
+	position: relative;
+	top: 10px;
+	margin: 0 0 0 -27px;
+	padding: 0px 5px 0px;
+}
+
+.quotes .quote .start-quote,
+.quotes .quote .end-quote {
+	font-size: 1.2em;
+	line-height: .4em;
+}
+
+
+
+.quotes .quote .tail {
+	height: 15px;
+	width: 15px;
+	display: block;
+	position: absolute;
+	top: 20px;
+	left: -15px;
+	background: url(/img/speech-bubble-tail.png) no-repeat;
+}
+
+.beveled {
+	text-shadow: 0 1px 1px #FFF;
+}
+
+.quoted {
+	padding: 0px 20px 0 50px;
+	position: relative;
+}
+
+.box-container.card::before, 
+.box-container.card::after {
+	content: "";
+	position: absolute;
+	z-index: -2;
+	top: 50%;
+	bottom: 0;
+	left: 10px;
+	right: 10px;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	-moz-border-radius: 100px/10px;
+	-webkit-border-radius: 100px/10px;
+	border-radius: 100px/10px;
+}
+
+.quotes .quote .attribution {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2em;
+	line-height: 2em;
+	/*padding: 20px;*/
+}
+
+.quotes .quote .start-quote, 
+.quotes .quote .end-quote {
+	font-size: 1.8em;
+	line-height: .4em;
+}
+
+.quotes .quote .end-quote {
+	padding: 0 5px 0 0px;
+	position: relative;
+	top: 8px;
+}
+
+.quoted .end-quote {
+	padding: 0px;
+	position: absolute;
+	bottom: -53px;
+}
+.push-right-10 {
+	margin-left: 10px;
+}
+
+.choose-answer {
+	display: block;
+	/*width: 710px;*/
+	margin: 0 15px 15px 0;
+	text-align: center;
+}
+.choose-answer.last {
+	margin: 0;
+}
+.icon-yellow {
+	background-image: url("../img/glyphicons-halflings-yellow.png");
+}
+
+.rating-container {
+	margin: 1em 0;
+}
+
+
+.game-state .game-icon {
+}
+
+.game-info {
+}
+
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+
+.avatar {
+	width: 50px;
+	height: 50px;
+	float: left;
+	left: 0px;
+	padding: 3px;
+	background: #FFF;
+	border: 1px solid #bbb;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+	-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+	box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.avatar img {
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	width: 50px;
+	height: 50px;
+}
+
+.game-info .avatar {
+	margin-right: 10px;
+}
+
+.game-score {
+	float:left;
+}
+
+
+i.game-score {
+	margin: 25px 0;
+}
+
+
+
+.record {
+	text-align: center;
+}
+
+
+

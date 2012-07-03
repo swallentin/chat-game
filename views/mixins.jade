@@ -2,6 +2,29 @@ mixin liveReload()
   - if( livereload )
     | <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 
+mixin game-state-info(gameState)
+  div.game-state-info.btn-inverse
+    div.game-info.left
+      mixin avatar(gameState.icon)
+      span.text #{gameState.category}
+    div.game-info.right.game-status
+      mixin avatar(gameState.playerA.avatarUrl)
+      mixin avatar(gameState.playerB.avatarUrl)
+      span.text #{gameState.score} x
+      i.icon-star.icon-yellow.game-score
+
+
+mixin game-action(speaker)
+  div.game-action-container.quotes
+    div.game-action-area
+      div.quote
+        div.avatar
+          img(alt='Two', src=speaker.imageUrl)
+        div(class='box-container card bubble')
+          div.tail
+          p Lorem
+
+
 mixin chatBubble(profile, text)
   div.quote
     div.avatar
@@ -129,16 +152,7 @@ mixin click-to-send-recording(profile)
             a(type='button', class='button btn-primary btn-large send-recording') Send your recording
 
 
-mixin gameState()
-  div.game-state.btn-inverse
-    div.game-info.left
-      mixin avatar('http://www.dummyimage.com/50x50/0056cc/ffffff')
-      span.text 12 "Fashion English"
-    div.game-info.right.game-status
-      mixin avatar('/img/profiles/c.jpg')
-      mixin avatar('/img/profiles/d.jpg')
-      span.text 0x
-      i.icon-star.icon-yellow.game-score
+
 
 mixin avatar(src)
   div.avatar
@@ -166,3 +180,19 @@ mixin games-listing-item()
         a(href="#") Lorem ipsum
       p Lorem ipsum vs Dolor samet
     i.icon-chevron-right
+
+mixin choose-what-to-say-html()
+      p(class='attribution') Choose what to say!
+      form(class='')
+        a(type='button', id='answer_a', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet.
+          div.rating-container
+            i.icon-star.icon-yellow
+        a(type='button', id='answer_b', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          div.rating-container
+            i.icon-star.icon-yellow
+            i.icon-star.icon-yellow
+        a(type='button', id='answer_c', class='button btn-primary btn-large choose-answer last') - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mauris ipsum, feugiat vel tristique a, sodales sed lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.
+          div.rating-container
+            i.icon-star.icon-yellow
+            i.icon-star.icon-yellow
+            i.icon-star.icon-yellow
