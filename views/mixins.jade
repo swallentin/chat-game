@@ -35,7 +35,83 @@ mixin gameBubble(profile, questions, lang)
             i.icon-star.icon-yellow
             i.icon-star.icon-yellow
 
-mixin record(profile)
+mixin click-to-record-failed(profile)
+  div.game-action-area
+    div.quote
+      div.avatar
+        img(alt='Two', src=profile.imageUrl)
+      div(class='box-container card bubble')
+        div.tail
+        a(type='button', id='answer_a', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet.
+          div.rating-container
+            i.icon-star.icon-yellow
+
+        p(class='attribution') Translate to English, and record your translation!
+        div.record
+            i.icon-play-circle
+            p Your didn't record anything, try again. 
+              a(href='#') Help
+            p Click and hold to record.
+
+mixin choose-an-answer-successful
+  div.game-action-area
+    div.quote
+      div.avatar
+        img(alt='Two', src=profile.imageUrl)
+      div(class='box-container card bubble')
+        div.tail
+        p(class='attribution') What is Samsan saying?
+        div.record
+            i.icon-play-circle
+            span Click to hear
+        form(class='')
+          a(type='button', id='answer_a', class='button btn-danger btn-large choose-answer') - Lorem ipsum dolor sit amet.
+            div.rating-container
+          a(type='button', id='answer_b', class='button btn-danger btn-large choose-answer') - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            div.rating-container
+          a(type='button', id='answer_c', class='button btn-success btn-large choose-answer') - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mauris ipsum, feugiat vel tristique a, sodales sed lacus. Vestibulum ante ipsum primis.
+            div.rating-container
+          a(type='button', id='answer_d', class='button btn-danger btn-large choose-answer last') - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mauris ipsum, feugiat vel tristique a, sodales sed lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.
+            div.rating-container
+
+mixin choose-an-answer
+  div.game-action-area
+    div.quote
+      div.avatar
+        img(alt='Two', src=profile.imageUrl)
+      div(class='box-container card bubble')
+        div.tail
+        p(class='attribution') What is Samsan saying?
+        div.record
+            i.icon-play-circle
+            span Click to hear
+        form(class='')
+          a(type='button', id='answer_a', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet.
+            div.rating-container
+          a(type='button', id='answer_b', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            div.rating-container
+          a(type='button', id='answer_c', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mauris ipsum, feugiat vel tristique a, sodales sed lacus. Vestibulum ante ipsum primis.
+            div.rating-container
+          a(type='button', id='answer_d', class='button btn-primary btn-large choose-answer last') - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mauris ipsum, feugiat vel tristique a, sodales sed lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.
+            div.rating-container
+
+mixin click-to-record(profile)
+  div.game-action-area
+    div.quote
+      div.avatar
+        img(alt='Two', src=profile.imageUrl)
+      div(class='box-container card bubble')
+        div.tail
+        a(type='button', id='answer_a', class='button btn-primary btn-large choose-answer') - Lorem ipsum dolor sit amet.
+          div.rating-container
+            i.icon-star.icon-yellow
+
+        p(class='attribution') Translate to English, and record your translation!
+        div.record
+            i.icon-play-circle
+            p Click and hold button to record
+
+mixin click-to-send-recording(profile)
   div.game-action-area
     div.quote
       div.avatar
@@ -72,3 +148,21 @@ mixin chooseWhatToSay()
   div.game-action-area
     mixin gameBubble({imageUrl: '/img/profiles/d.jpg', userName: 'John. D', origin: 'Sweden'}, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et ullamcorper ipsum.")
 
+mixin games-listing()
+  .toolbar
+    h2 Games
+  div.game-container.game-well.with-toolbar
+    ul.games-listing
+      mixin games-listing-item()
+      mixin games-listing-item()
+      mixin games-listing-item()
+      mixin games-listing-item()
+
+mixin games-listing-item()
+  li.game
+    i.icon-star.icon-yellow.icon
+    div.game-info
+      h2
+        a(href="#") Lorem ipsum
+      p Lorem ipsum vs Dolor samet
+    i.icon-chevron-right
