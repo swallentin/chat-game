@@ -1,14 +1,12 @@
 var AppRouter = Backbone.Router.extend({
   routes: {
     "": "index",
-    "todo/:id": "todo",
+    "games/:id": "games",
   },
   index: function() {
-    this.todos = new Todos();
-    this.todosView = new TodoListView({
-      collection: this.todos
-    });
-    this.todos.fetch();
+    console.log("index");
   },
-  todo: function(id) {}
+  games: function(id) {
+    console.log("games/" + id);
+  }
 });

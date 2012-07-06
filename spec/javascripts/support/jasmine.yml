@@ -24,6 +24,7 @@ src_files:
   - assets/js/collections/*.js
   - assets/js/routers/*.js
   - assets/js/views/*.js
+  - assets/js/views/**/*.js
 
 # stylesheets
 #

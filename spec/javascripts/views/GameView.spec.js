@@ -1,11 +1,11 @@
 describe("Game View, placeholder for main view presented during game play.", function(){
 
   beforeEach(function(){
-    this.view = new GameView();
+    this.view = new GameView({
+    });
   });
 
   describe("when instantiated", function(){
-
 
     describe("Rendering", function() {
 
@@ -18,10 +18,11 @@ describe("Game View, placeholder for main view presented during game play.", fun
         expect(this.view.el.nodeName).toEqual("DIV");
       });
 
-      it("should have the 'gameview' class", function() {
+      it("should render the correct id", function() {
         this.view.render();
-        expect(this.view.el.nodeName).toEqual("DIV");
+        expect(this.view.el).toHaveId("game-view");
       });
+
 
     });
 

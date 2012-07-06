@@ -1,55 +1,18 @@
-// var connection=null;
-// $(document).ready(function(){
-    
-//     // $('#setup-twilio').click(function() {
+var App = function() {
+	var initialize = function() {
+		console.log("initialize");
+		var appRouter = new AppRouter();
+		Backbone.history.start();
+	};
+	return {
+		initialize: initialize
+	};
+};
+$(document).ready(function() {
+	var app = new App();
+	app.initialize();
+});
 
-//         $.getJSON('/api/token', { clientName: $("#name").val() }, function(data) {
-//             // $(".debug-message-window").append(data);
-//             // console.log(data);
-        
-//             Twilio.Device.setup(data.token,{"debug":true});
-
-//             $("#call").click(function() {
-//                 Twilio.Device.connect();
-//             });
-
-//             $("#hangup").click(function() {  
-//                 connection.sendDigits("#");
-//             });
-         
-//             Twilio.Device.ready(function (device) {
-//                 $('#status').text('Ready to start recording');
-//             });
-         
-//             Twilio.Device.offline(function (device) {
-//                 $('#status').text('Offline');
-//             });
-         
-//             Twilio.Device.error(function (error) {
-//                 $('#status').text(error);
-//             });
-         
-//             Twilio.Device.connect(function (conn) {
-//                 console.log('Connect()');
-//                 connection=conn;
-//                 $('#status').text("On Air");
-//                 $('#status').css('color', 'red');
-//                 toggleCallStatus();
-//             });
-         
-//             Twilio.Device.disconnect(function (conn) {
-//                 $('#status').html('Recording ended<br/><a href="recordings/show">view recording list</a>');
-//                 $('#status').css('color', 'black');
-//                 toggleCallStatus();
-//             });
-//         });
-//     // });
-// });
-
-// function toggleCallStatus(){
-//     $('#call').toggle();
-//     $('#hangup').toggle();
-// }
 var Todos = Backbone.Collection.extend({
   url: "/todos",
   model: Todo,
@@ -73,19 +36,18 @@ var Todo = Backbone.Model.extend({
 var AppRouter = Backbone.Router.extend({
   routes: {
     "": "index",
-    "todo/:id": "todo",
+    "games/:id": "games",
   },
   index: function() {
-    this.todos = new Todos();
-    this.todosView = new TodoListView({
-      collection: this.todos
-    });
-    this.todos.fetch();
+    console.log("index");
   },
-  todo: function(id) {}
+  games: function(id) {
+    console.log("games/" + id);
+  }
 });
 var GameView = Backbone.View.extend({
   tagName: "div",
+  id: "game-view",
   render: function () {
     return this;
   }
@@ -125,3 +87,28 @@ var TodoView = Backbone.View.extend({
     this.$("input.edit").fadeIn();
   }
 });
+// added a comment
+var GameStateView = Backbone.View.extend({
+	className: "game-state-info btn-inverse",
+	initialize: function(options) {
+		this.template = Handlebars.compile(options.template || "");
+	},
+	render: function() {
+		$(this.el).html(this.template(this.model.toJSON()));
+		return this;
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+

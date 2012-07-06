@@ -2,52 +2,8 @@ extends layout
 
 block content
   div.row
-    div.span12
-      div(class='alert alert-error')
-        h1 Debugging
-      pre(class='prettyprint linenums debug-message-window')
-      h1= title
-      p Welcome to a simple demo using Twilio together with nodejs/bootstrap/jade #{title}
-  div.row
-    div.span4
-      h2 Create a recording
-      br
-      a(type='button', id='call', class='button btn-primary btn-large') Begin recording
-      a(type='button', id='hangup', style='display: none', class='button btn-primary btn-large') Stop recording
-      br
-      br
-      div#status
-        | Offline
-    div.span4
-      h2 Settings
-      table(class='table table-bordered table-striped')
-        thead
-          tr
-            th Settings
-            th Value
-        tbody
-          tr
-            td accountSid
-            td(id='accountSid')=twilio.accountSid
-          tr
-            td authToken
-            td(id='authToken')=twilio.authToken
-          tr
-            td appSid
-            td(id='appSid')=twilio.appSid
-          tr
-            td Username
-            td 
-              input(id='name', class='input-small', placeholder="Enter name", value='chuck')
-              a(id='setup-twilio', type='submit', class='btn btn-danger') Setup
-
-    div(class='span4', id='quotes')
-      h2 Chat bubbles
-        mixin chatBubble({imageUrl: '/img/profiles/a.jpg', userName: 'John. D', origin: 'Sweden'}, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et ullamcorper ipsum.")
-
-      form(class='well form-inline')
-        input(type='text', class='input-medium', placeholder="Reply")
-        button(type='submit', class='btn btn-primary') Send text
-        a(type='submit', class='btn btn-primary')
-          i(class='icon-play icon-white')
-          |Record
+    div.span6
+      h1 Development column 1
+      p render game view here
+    div.span6
+      h1 Development column 2

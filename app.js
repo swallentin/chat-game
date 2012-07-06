@@ -35,8 +35,10 @@ app.configure('production', function(){
 // Routes
 
 // require('./controllers/index')(app, '');
-require('./controllers/game')(app, '');
+require('./controllers/index')(app, '/');
+require('./controllers/game')(app, '/game');
 require('./controllers/dev')(app, '/dev');
+require('./controllers/debug')(app, '/debug');
 require('./controllers/api')(app, '/api');
 
 app.listen(config.port);

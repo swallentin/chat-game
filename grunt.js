@@ -14,10 +14,12 @@ module.exports = function(grunt) {
 			dist: {
 				src: [
 					"assets/js/app.js", 
+					"assets/js/main.js", 
 					"assets/js/collections/**.js", 
 					"assets/js/models/**.js", 
 					"assets/js/routers/**.js", 
-					"assets/js/views/**.js"
+					"assets/js/views/**.js",
+					"assets/js/views/**/**.js"
 				],
 				dest: "assets/js/chat-game.js"
 			}

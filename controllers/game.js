@@ -4,7 +4,7 @@ var _app,
 module.exports = function(app, appPath) {
   appPath = appPath || '';
   _app = app;
-  _app.get(appPath + "/", game);
+  _app.get(appPath, game);
 };
 
 function game(req, res) {

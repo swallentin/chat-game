@@ -1,3 +1,28 @@
+mixin navigation()
+  div(class="navbar navbar-fixed-top")
+      div.navbar-inner
+        div.container
+          a(class="btn btn-navbar", data-toggle="collapse", data-target=".nav-collapse")
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a(class="brand", href="#") Project name
+          div.nav-collapse
+            ul.nav
+              li.active
+                a(href="/") Home
+              li
+                a(href="/dev") Dev
+              li
+                a(href="/debug") Debug
+              li
+                a(href="/game") Game
+              li
+                a(href="/#/") #/
+              li
+                a(href="/#/games/1") #Games/1
+
+
 mixin liveReload()
   - if( livereload )
     | <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
