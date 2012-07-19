@@ -13,7 +13,7 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.set('view options', { layout: false });
-  app.use(express.bodyParser());
+  // app.use(express.bodyParser({ uploadDir: './uploads', keepExtensions: true}));
   app.use(express.methodOverride());
   app.use(express.cookieParser());
   app.use(express.session({ secret: 'your secret here' }));
@@ -26,6 +26,8 @@ app.configure('development', function(){
   app.set('config', config);
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
+
+app.use(express.limit('2mb'));
 
 app.configure('production', function(){
   app.use(express.static(__dirname + '/public'));

@@ -1,12 +1,22 @@
 var AppRouter = Backbone.Router.extend({
+  vent: _.extend({}, Backbone.Events),
   routes: {
     "": "index",
-    "games/:id": "games",
+    "game/:id": "game",
   },
   index: function() {
     console.log("index");
   },
-  games: function(id) {
-    console.log("games/" + id);
+  game: function(id) {
+    console.log("game/" + id);
+    // var game = new Game({
+    //   id: id
+    // });
+
+    var gameView = new GameView({
+      el: $("#game"),
+      vent: this.vent
+    });
+    gameView.render();
   }
 });

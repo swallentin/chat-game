@@ -1,0 +1,5 @@
+* bd - Module definition (requirejs)
+* bv - Backbone.View.extend({$1})
+* bm - Backbone.Model.extend({$1})
+* bc - Backbone.Collection.extend({$1})
+* br - Backbone.Router.extend({$1})

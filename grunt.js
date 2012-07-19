@@ -19,7 +19,8 @@ module.exports = function(grunt) {
 					"assets/js/models/**.js", 
 					"assets/js/routers/**.js", 
 					"assets/js/views/**.js",
-					"assets/js/views/**/**.js"
+					"assets/js/views/**/**.js",
+					"assets/js/views/game/**/**.js"
 				],
 				dest: "assets/js/chat-game.js"
 			}

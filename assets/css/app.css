@@ -114,6 +114,11 @@ td {
 .game-action-area {
   padding: 1em;
 }
+.player,
+.recorded,
+.next {
+  text-align: center;
+}
 .box-container {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -296,4 +301,8 @@ i.game-score {
 }
 .record {
   text-align: center;
+}
+/* Choose answer buttons */
+.choose-answer {
+  width: 100%;
 }
