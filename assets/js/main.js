@@ -1,41 +1,41 @@
 $(document).ready(function() {
 
-	App().initialize();
+  App().initialize();
 
-	// setupRecorder();
+  // setupRecorder();
 
-	// function setupRecorder() {
-	// 	console.log("setupRecorder");
-	// 	Wami.setup({
-	// 		id : "wami",
-	// 		onReady : setupGUI
-	// 	});
-	// }
+  // function setupRecorder() {
+  //  console.log("setupRecorder");
+  //  Wami.setup({
+  //    id : "wami",
+  //    onReady : setupGUI
+  //  });
+  // }
 
-	// function setupGUI() {
-	// 	console.log("setupGUI");
-	// 	var gui = new Wami.GUI({
-	// 		id : "wami",
-	// 		recordUrl : "http://local.dev:3000/game/recording/1337",
-	// 		playUrl : "http://localhost:3000/game/recording/1337"
-	// 	});
+  // function setupGUI() {
+  //  console.log("setupGUI");
+  //  var gui = new Wami.GUI({
+  //    id : "wami",
+  //    recordUrl : "http://local.dev:3000/game/recording/1337",
+  //    playUrl : "http://localhost:3000/game/recording/1337"
+  //  });
 
-	// 	gui.setPlayEnabled(false);
-	// }
+  //  gui.setPlayEnabled(false);
+  // }
 
-	// var audioDeviceView = new AudioDeviceView();
+  // var audioDeviceView = new AudioDeviceView();
 
 });
 
 
 var AudioDeviceView = Backbone.View.extend({
-	events: {
+  events: {
 
-	},
-	initialize: function(options) {
+  },
+  initialize: function(options) {
 
-	},
-	render: function() {
+  },
+  render: function() {
 
-	}
+  }
 });

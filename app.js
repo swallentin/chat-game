@@ -18,19 +18,17 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({ secret: 'your secret here' }));
   app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+  app.use(express.limit('2mb'));
+  app.set('config', config);
 });
 
 app.configure('development', function(){
-  app.use(express.static(__dirname + '/assets'));
   app.set('livereload', true);
-  app.set('config', config);
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-app.use(express.limit('2mb'));
-
 app.configure('production', function(){
-  app.use(express.static(__dirname + '/public'));
   app.use(express.errorHandler());
 });
 

@@ -18,7 +18,7 @@
 	box-sizing: border-box;
 }
 
-.game-container.game-well {
+.game-list-container {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -34,18 +34,24 @@
 }
 
 
-.game-container.game-well.with-toolbar {
+.game-list-container.with-toolbar {
 	-webkit-border-radius: 0 0 5px 5px;
 	-moz-border-radius: 0 0 5px 5px;
 	border-radius: 0 0 5px 5px;
 	border-top: none;
 }
 
-.games-listing {
-	text-align: left;
+.game-list .game:first-child {
+border-top: none;
 }
 
-.games-listing .game {
+.game-list {
+	text-align: left;
+	margin-left: 0px;
+}
+
+.game-list-item {
+	background: #fff;
 	position: relative;
 	width: 100%;
 	padding: 0;
@@ -56,18 +62,18 @@
 	cursor: pointer;
 }
 
-.games-listing .icon {
+.game-list-item .icon {
 	margin: 25px 15px 0 15px;
 	float: left;
 }
 
-.games-listing .game-info {
+.game-list-item .game-info {
 	margin: 0 40px 0 60px;
 	position: relative;
 	width: auto;
 }
 
-.games-listing .icon-chevron-right {
+.game-list-item .icon-chevron-right {
 	position: absolute;
 	top: 25px;
 	right: 0px;

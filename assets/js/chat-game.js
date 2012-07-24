@@ -1,5 +1,5 @@
-var App = function() {
-	var initialize = function() {
+var App = function () {
+	var initialize = function () {
 		var appRouter = new AppRouter();
 		Backbone.history.start();
 	};
@@ -9,46 +9,51 @@ var App = function() {
 };
 $(document).ready(function() {
 
-	App().initialize();
+  App().initialize();
 
-	// setupRecorder();
+  // setupRecorder();
 
-	// function setupRecorder() {
-	// 	console.log("setupRecorder");
-	// 	Wami.setup({
-	// 		id : "wami",
-	// 		onReady : setupGUI
-	// 	});
-	// }
+  // function setupRecorder() {
+  //  console.log("setupRecorder");
+  //  Wami.setup({
+  //    id : "wami",
+  //    onReady : setupGUI
+  //  });
+  // }
 
-	// function setupGUI() {
-	// 	console.log("setupGUI");
-	// 	var gui = new Wami.GUI({
-	// 		id : "wami",
-	// 		recordUrl : "http://local.dev:3000/game/recording/1337",
-	// 		playUrl : "http://localhost:3000/game/recording/1337"
-	// 	});
+  // function setupGUI() {
+  //  console.log("setupGUI");
+  //  var gui = new Wami.GUI({
+  //    id : "wami",
+  //    recordUrl : "http://local.dev:3000/game/recording/1337",
+  //    playUrl : "http://localhost:3000/game/recording/1337"
+  //  });
 
-	// 	gui.setPlayEnabled(false);
-	// }
+  //  gui.setPlayEnabled(false);
+  // }
 
-	// var audioDeviceView = new AudioDeviceView();
+  // var audioDeviceView = new AudioDeviceView();
 
 });
 
 
 var AudioDeviceView = Backbone.View.extend({
-	events: {
+  events: {
 
-	},
-	initialize: function(options) {
+  },
+  initialize: function(options) {
 
-	},
-	render: function() {
+  },
+  render: function() {
 
-	}
+  }
 });
-var Questions
+var Games = Backbone.Collection.extend({
+  model: Game
+});
+var Questions = Backbone.Model.extend({
+  model: Game
+});
 var Todos = Backbone.Collection.extend({
   url: "/todos",
   model: Todo,
@@ -58,6 +63,8 @@ var Todos = Backbone.Collection.extend({
   comparator: function (todo) {
     return todo.get("priority");
   }
+});
+var Game = Backbone.Model.extend({
 });
 var Todo = Backbone.Model.extend({
 	defaults: {
@@ -336,18 +343,39 @@ var GameView = Backbone.View.extend({
     return this;
   }
 });
+var GameListItemView = Backbone.View.extend({
+  className: 'item game-list-item',
+  tagName: 'LI',
+  initialize: function() {
+    this.template = Handlebars.compile( $("#GameListItemView-template").html() );
+  },
+  render: function() {
+    $(this.el).html(this.template(this.model.toJSON()));
+    return this;
+  }
+});
+var GameListView = Backbone.View.extend({
+  className: "game-list",
+  tagName: "UL",
+	initialize: function (options) {
+		this.vent = options.vent || {};
+    _.bindAll(this);
+	},
+	render: function() {
+    this.collection.each(this.addItem);
+		return this;
+	},
+  addItem: function(game) {
+    var view = new GameListItemView({
+      model: game
+    });
+    var gameEl = view.render().el;
+    $(this.el).append(gameEl);
+  }
+});
 var GameNotPlayingView = Backbone.View.extend({
 	initialize: function (options) {
 		this.vent = options.vent || {};
-	}
-});
-var GamesListView = Backbone.View.extend({
-	initialize: function (options) {
-		this.vent = options.vent || {};
-	},
-	render: function() {
-		$(this.el).html("<h1>GamesListView</h1>");
-		return this.el;
 	}
 });
 var StartGameView = Backbone.View.extend({

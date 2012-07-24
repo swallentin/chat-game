@@ -1,96 +1,7 @@
 var MyApp = (function (Backbone, $, _, Handlebars) {
-	
-	// 	var Step_1_View = Backbone.View.extend({
-	// 		tagName: "button",
-	// 		className: "button btn-primary btn-large",
-	// 		events: {
-	// 			"click": "next"
-	// 		},
-	// 		initialize: function(options) {
-	// 			this.el.innerText = "Step 1";
-	// 			this.vent = options.vent;
-	// 		},
-	// 		next: function() {
-	// 			this.vent.trigger("step1_finished");
-	// 		}
-	// 	});
-
-	// 	var Step_2_View = Backbone.View.extend({
-	// 		tagName: "button",
-	// 		className: "button btn-info btn-large",
-	// 		events: {
-	// 			"click": "next"
-	// 		},
-	// 		initialize: function(options) {
-	// 			this.el.innerText = "Step 2";
-	// 			this.vent = options.vent;
-	// 		},
-	// 		next: function() {
-	// 			this.vent.trigger("step2_finished");
-	// 		}
-	// 	});
-
-	// 	var Step_3_View = Backbone.View.extend({
-	// 		tagName: "button",
-	// 		className: "button btn-success btn-large",
-	// 		events: {
-	// 			"click": "next"
-	// 		},
-	// 		initialize: function(options) {
-	// 			this.el.innerText = "Step 3";
-	// 			this.vent = options.vent;
-	// 		},
-	// 		next: function() {
-	// 			this.vent.trigger("step3_finished");
-	// 		}
-	// 	});
-
-	// var MainView = Backbone.View.extend({
-	// 	step1_finished: function() {
-	// 		console.log("step1_finished");
-	// 		$(this.el).find("#view_area").html( this.view2.render().el );
-	// 	},
-	// 	step2_finished: function() {
-	// 		console.log("step2_finished");
-	// 		$(this.el).find("#view_area").html( this.view3.render().el );
-	// 	},
-	// 	step3_finished: function() {
-	// 		console.log("step3_finished");
-	// 	},
-	// 	initialize: function(options) {
-	// 		_.bindAll(this, 'step1_finished');
-	// 		_.bindAll(this, 'step2_finished');
-	// 		_.bindAll(this, 'step3_finished');
-	// 		this.vent = options.vent || {};
-
-	// 		this.view1 = new Step_1_View({
-	// 			vent: this.vent
-	// 		});
-
-	// 		this.view2 = new Step_2_View({
-	// 			vent: this.vent
-	// 		});
-
-	// 		this.view3 = new Step_3_View({
-	// 			vent: this.vent
-	// 		});
-
-	// 		this.vent.on("step1_finished", this.step1_finished);
-	// 		this.vent.on("step2_finished", this.step2_finished);
-	// 		this.vent.on("step3_finished", this.step3_finished);
-
-	// 		this.template = Handlebars.compile(options.template || "");
-	// 		this.render();
-	// 	},
-	// 	render: function() {
-	// 		$(this.el).append(this.template({heading: "testing a heading"}));
-	// 		$(this.el).find("#view_area").html( this.view1.render().el );
-	// 	},
-	// });
-
 	return {
 		vent: _.extend({}, Backbone.Events),
-		init: function() {
+		renderQuestionsView: function() {
 			var model1 = new Backbone.Model({
 				id: 0,
 				text: "Lorem ipsum dolor sit amet.",
@@ -115,7 +26,7 @@ var MyApp = (function (Backbone, $, _, Handlebars) {
 			var listView = new ChooseQuestionListView({
 				collection: collection,
 				vent: this.vent,
-				el: $("#gaming")
+				el: $(".sentance-list")
 			});
 
 			this.vent.on("choose-answer", function (message) {
@@ -123,7 +34,8 @@ var MyApp = (function (Backbone, $, _, Handlebars) {
 			});
 
 			listView.render();
-
+		},
+		renderAudioPlayer: function() {
 			var audioPlayer = new SimpleAudioPlayerView({
 				el: $(".audio-player"),
 				model: new Backbone.Model({
@@ -131,7 +43,8 @@ var MyApp = (function (Backbone, $, _, Handlebars) {
 				})
 			})
 			.render();
-
+		},
+		renderAudioRecorder: function() {
 			var audioRecorder = new SimpleAudioRecorderView({
 				el: $(".audio-recorder"),
 				model: new Backbone.Model({
@@ -139,7 +52,83 @@ var MyApp = (function (Backbone, $, _, Handlebars) {
 					playingUrl: "http://dev.local:3000/game/recording/1337"
 				})
 			}).render();
+		},
+		renderGameList: function() {
+		var player1 = new Backbone.Model({
+				id: 0,
+				name: "chuckzo"
+			});
 
+			var player2 = new Backbone.Model({
+				id: 1,
+				name: "johnzo"
+			});
+
+			var game1 = new Backbone.Model({
+				id: 0,
+				round: 2,
+				score: 11,
+				title: "Hello world",
+				players: new Backbone.Collection(),
+				opponent: "test"
+			});
+			var game2 = new Backbone.Model({
+				id: 1,
+				round: 5,
+				score: 15,
+				title: "Hello world 2",
+				players: new Backbone.Collection(),
+				opponent: "test2"
+			});
+
+			game1.get('players').add([player1, player2]);
+			game2.get('players').add([player1, player2]);
+
+			var games = new Backbone.Collection([game1, game2]);
+
+			var gameListView = new GameListView({
+				collection: games
+			});
+
+			$(".game-list").html( gameListView.render().el );
+
+		},
+		renderGameListItem: function() {
+		var player1 = new Backbone.Model({
+				id: 0,
+				name: "chuckzo"
+			});
+
+			var player2 = new Backbone.Model({
+				id: 1,
+				name: "johnzo"
+			});
+
+			var game1 = new Backbone.Model({
+				id: 0,
+				round: 2,
+				score: 11,
+				title: "Hello world",
+				players: new Backbone.Collection(),
+				opponent: "test"
+			});
+
+			game1.get('players').add([player1, player2]);
+
+			var games = new Backbone.Collection([game1]);
+
+			var gameListItemView = new GameListItemView({
+				model: game1
+			});
+
+			$(".game-list-item").html(gameListItemView.render().el);
+		},
+		init: function() {
+			// this.renderQuestionsView();
+			// this.renderAudioRecorder();
+			// this.renderAudioPlayer();
+			this.renderGameList();
+			this.renderGameListItem();
 		}
 	}
 
