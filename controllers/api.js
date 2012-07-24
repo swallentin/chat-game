@@ -1,7 +1,6 @@
 var _app,
 	_config,
 	url = require('url'),
-	TwilioCapability = require('../git_modules/TwilioCapability-js/nodejs/lib/TwilioCapability'),
 	uuid = require('node-uuid'),
 	fs = require('fs');
 
