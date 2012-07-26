@@ -1,4 +1,3 @@
-CHATGAMEUI_JS = ./git_modules/chat-game-ui/lib/chat-game-ui.js
 DATE=$(shell date +%I:%M%p)
 CHECK=\033[32m✔\033[39m
 HR=\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
@@ -8,8 +7,7 @@ update:
 	@echo "Building chat-game..."
 	@echo "${HR}\n"
 
-	@cp ./git_modules/chat-game-ui/lib/chat-game-ui.js public/js/chat-game-ui.js
-	@cp ./git_modules/chat-game-ui/lib/chat-game-ui.min.js public/js/chat-game-ui.min.js
+	@cp -r ./assets/chat-game-ui/lib/ ./public/js/chat-game-ui
 
 	@echo "Copying javascripts...       ${CHECK} Done"
 	@echo "\n${HR}"
