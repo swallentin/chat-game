@@ -13,12 +13,12 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.set('view options', { layout: false });
-  // app.use(express.bodyParser({ uploadDir: './uploads', keepExtensions: true}));
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({ secret: 'your secret here' }));
+  app.use(express.session({ secret: 'i can haxx' }));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+  app.use('/ui', express.static(__dirname + '/assets/chat-game-ui/lib'));
   app.use(express.limit('2mb'));
   app.set('config', config);
 });
@@ -33,13 +33,11 @@ app.configure('production', function(){
 });
 
 // Routes
-
-// require('./controllers/index')(app, '');
-require('./controllers/index')(app, '/');
-require('./controllers/game')(app, '/game');
-require('./controllers/dev')(app, '/dev');
-require('./controllers/debug')(app, '/debug');
-require('./controllers/api')(app, '/api');
+require('./lib/controllers/index')(app, '/');
+require('./lib/controllers/game')(app, '/game');
+require('./lib/controllers/dev')(app, '/dev');
+require('./lib/controllers/debug')(app, '/debug');
+require('./lib/controllers/api')(app, '/api');
 
 app.listen(config.port);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

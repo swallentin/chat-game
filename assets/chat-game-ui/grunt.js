@@ -1,7 +1,6 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
-  var pathToUI = "assets/chat-game-ui/";
   grunt.loadNpmTasks('grunt-rigger');
 
   // Project configuration.
@@ -10,7 +9,7 @@ module.exports = function(grunt) {
       version: '0.2.0',
       banner: '// chat-game-ui, v<%= meta.version %>\n' +
         '// Copyright (c)<%= grunt.template.today("yyyy") %> Stephan Wallentin, EF Labs\n' + 
-        '// http://github.com/englishtown/chat-game'
+        '// http://github.com/englishtown/chat-game-ui'
     },
 
     lint: {
@@ -20,33 +19,33 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: [
-          pathToUI + "src/collections/**/*.js",
-          pathToUI + "src/models/**/*.js",
-          pathToUI + "src/routers/**/*.js",
-          pathToUI + "src/views/**/*.js",
-          pathToUI + "src/app.js",
-          pathToUI + "src/main.js",
-          pathToUI + "src/dev.js",
+          "src/collections/**/*.js",
+          "src/models/**/*.js",
+          "src/routers/**/*.js",
+          "src/views/**/*.js",
+          "src/app.js",
+          "src/main.js",
+          "src/dev.js",
         ],
-        dest: pathToUI + "lib/chat-game-ui.js"
+        dest: "lib/chat-game-ui.js"
       }
     },
 
     rig: {
       amd: {
         src: ['<banner:meta.banner>', 'src/amd.js'],
-        dest: pathToUI + 'lib/chat-game-ui.amd.js'
+        dest: 'lib/chat-game-ui.amd.js'
       }
     },
 
     min: {
       standard: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: pathToUI + 'lib/chat-game-ui.min.js'
+        dest: 'lib/chat-game-ui.min.js'
       },
       amd: {
         src: ['<banner:meta.banner>', '<config:rig.amd.dest>'],
-        dest: pathToUI + 'lib/chat-game-ui.amd.min.js'
+        dest: 'lib/chat-game-ui.amd.min.js'
       }
     },
 

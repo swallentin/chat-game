@@ -1,0 +1,8 @@
+{
+  "name": "chat-game-ui",
+  "version": "0.2.0",
+  "dependencies": {
+    "grunt": "*",
+    "grunt-rigger": "*"
+  }
+}

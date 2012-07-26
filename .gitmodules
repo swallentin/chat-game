@@ -1,6 +1,3 @@
 [submodule "git_modules/chat-game-ui"]
 	path = git_modules/chat-game-ui
 	url = https://github.com/englishtown/chat-game-ui.git
-[submodule "git_modules/bootstrap"]
-	path = git_modules/bootstrap
-	url = https://github.com/twitter/bootstrap.git
