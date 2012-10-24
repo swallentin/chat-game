@@ -1,11 +1,12 @@
 var GameListItemView = Backbone.View.extend({
-  className: 'item game-list-item',
-  tagName: 'LI',
+  tagName: "LI",
+  className: "item game-list-item",
   initialize: function() {
     this.template = Handlebars.compile( $("#GameListItemView-template").html() );
   },
   render: function() {
-    $(this.el).html(this.template(this.model.toJSON()));
+    var output = this.template(this.model.toJSON());
+    $(this.el).html(output);
     return this;
   }
 });

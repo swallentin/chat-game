@@ -7,7 +7,7 @@ var PlayingChooseWhatToSay = Backbone.View.extend({
 		this.clickedQuestionEventName = options.clickedQuestionEventName || "/game/speaking/clickedAnswer";
 
 		this.questionList = new ChooseQuestionListView({
-			collection: this.model.get("questions"),
+			model: this.model,
 			vent: this.vent,
 			clickedQuestionEventName: this.clickedQuestionEventName
 		})
@@ -18,8 +18,9 @@ var PlayingChooseWhatToSay = Backbone.View.extend({
 		$(this.el).append(this.template({
 			message: "Choose what to say!"
 		}));
-
+		
 		$(this.el).append(this.questionList.render().el);
+
 		return this;
 	},
 

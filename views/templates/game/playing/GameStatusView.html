@@ -1,16 +1,16 @@
 <script type="text/template" id="GameStatusView-template">
 	<div class="game-info left">
 		<div class="avatar">
-			<img src="{{topic.imgUrl}}">
+			<img src="/img/dialogues/{{dialogue.icon}}">
 		</div>
-		<span class="text">{{topic.description}}</span>
+		<span class="text">{{dialogue.topic}}</span>
 	</div>
 	<div class="game-info right game-status">
 		<div class="avatar">
-			<img src="{{playerA.profileImgUrl}}"/>
+			<img src="/img/profiles/{{player_a.icon}}"/>
 		</div>
 		<div class="avatar">
-			<img src="{{playerB.profileImgUrl}}"/>
+			<img src="/img/profiles/{{player_b.icon}}"/>
 		</div>
 		<span class="text">{{score}} x</span>
 		<i class="icon-star icon-yellow game-score"></i>

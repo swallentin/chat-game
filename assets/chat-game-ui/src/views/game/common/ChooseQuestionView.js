@@ -34,11 +34,10 @@ var ChooseQuestionView = Backbone.View.extend({
 			view: this,
 			model: this.model
 		};
-		console.log("ChooseQuestionView:onClickedQuestion");
 
 		this.trigger("clickedQuestion", eventMessage );
 	}
 
-})
+});
 
 

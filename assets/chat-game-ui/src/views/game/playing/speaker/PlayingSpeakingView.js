@@ -1,6 +1,5 @@
 var PlayingSpeakingView = Backbone.View.extend({
 	// Element settings
-	
 	// View initialization and render
 	initialize: function(options) {
 
@@ -9,7 +8,6 @@ var PlayingSpeakingView = Backbone.View.extend({
 
 		// setup event stuff
 		_.bindAll(this);
-		this.views = [];
 
 		this.on("onload", this.onLoad);
 		this.trigger("onload");
@@ -20,17 +18,26 @@ var PlayingSpeakingView = Backbone.View.extend({
 		return this;
 	},
 	onLoad: function() {
+		// TODO: Insert get paragraph options here
 		var choose = new PlayingChooseWhatToSay({
 			vent: this.vent,
 			template: $("#PlayingChooseWhatToSay-template").html(),
 			model: this.model
-		})
-		.bind("clickedQuestion", this.onClickedQuestion);
+		}).bind("clickedQuestion", this.onClickedQuestion);
 		this.activeView = choose;
 	},
+
 	// Events
 	onClickedQuestion: function(e) {
 		console.log("PlayingSpeakingView:onClickedQuestion");
+
+		// post the selected paragraph to the api
+
+		// console.log(this.model);
+		// this.model.set("currentParagraphDefinition", e.model.id);
+		this.model.save({
+			currentParagraphDefinition: e.model.id
+		});
 
 		var record = new RecordTranslationView({
 			vent: this.vent,
@@ -38,7 +45,6 @@ var PlayingSpeakingView = Backbone.View.extend({
 			model: e.model
 		})
 		.bind("successfull", this.onRecordingSent);
-
 		this.activeView = record;
 		this.render();
 	},
@@ -46,9 +52,8 @@ var PlayingSpeakingView = Backbone.View.extend({
 		var nextturn = new PlayingNextTurnView({
 			vent: this.vent,
 			template: $("#PlayingNextTurnView-template").html(),
-		})
-		.bind("next", this.onNextTurnFinished);
-		
+		}).bind("next", this.onNextTurnFinished);
+
 		this.activeView = nextturn;
 		this.render();
 	},

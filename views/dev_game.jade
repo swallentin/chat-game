@@ -1,0 +1,62 @@
+extends dev_layout
+
+block content
+  - var profile = {imageUrl: '/img/profiles/a.jpg'};
+  - var gameState = { category: '12 Fashion English', score: 10, icon: '/img/profiles/a.jpg', playerA: {avatarUrl: "/img/profiles/b.jpg"}, playerB: {avatarUrl: '/img/profiles/c.jpg'} };
+
+  div.row
+    div.span6
+      h1 Development
+      h4 mixin game action view
+      mixin game-action(profile)
+
+    div.span6
+      h1 Development
+      h4 mixin game-state-info
+      mixin game-state-info(gameState)
+
+  div.row
+    div(class='span6')
+      h1 Player A
+
+      h4 Games - List
+        mixin games-listing()
+
+      h4 Game View - State - Choose What to say
+      div.game-container.quotes
+        mixin game-state-info(gameState)
+        mixin chooseWhatToSay()
+
+      h4 Game View - State - Record - Step 1 - Click to record
+      div.game-container.quotes
+        mixin game-state-info(gameState)
+        mixin click-to-record(profile)
+
+      h4 Game View - State - Record - Step 2a - Recording succesful, click to send
+      div.game-container.quotes
+        mixin game-state-info(gameState)    
+        mixin click-to-send-recording(profile)
+
+      h4 Game View - State - Record - Step 2b - Failed
+      div.game-container.quotes
+        mixin game-state-info(gameState)
+        mixin click-to-record-failed(profile)
+
+    div.span6
+      h1 Player B
+
+      h4 Game View - State - Choose an answer
+      div.game-container.quotes
+        mixin game-state-info(gameState)
+        mixin choose-an-answer(profile)     
+
+      h4 Game View - State - Choose an answer - Success
+      div.game-container.quotes
+        mixin game-state-info(gameState)
+        mixin choose-an-answer-successful(profile)
+
+
+
+
+
+

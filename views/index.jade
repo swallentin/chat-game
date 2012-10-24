@@ -1,9 +1,14 @@
 extends layout
 
 block content
-  h1 Welcome to index
-  div
-    a(href="/#/", class='btn btn-primary') #/
-    a(href="/#/game/1", class='btn btn-primary') #/game/1
+  h1 App
+  .toolbar
+    .btn-group
+      a(href="/#/", class='btn')
+        i.icon-home
+        | Home
   #game
   #wami
+
+block scripts
+  script(src='/chat-game-ui/chat-game-ui.js')

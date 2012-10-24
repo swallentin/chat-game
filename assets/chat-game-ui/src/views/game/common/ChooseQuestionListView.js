@@ -5,7 +5,17 @@ var ChooseQuestionListView = Backbone.View.extend({
     _.bindAll(this);
 	},
 	render: function() {
-    this.collection.each(this.addQuestion);
+    
+    var questions = new Questions({}),
+        that = this;
+    
+    questions.fetch({
+      url: '/paragraphs/' + that.model.get('currentParagraph')._id,
+      success: function() {
+        questions.each(that.addQuestion);
+      }
+    });
+
     return this;
 	},
 	addQuestion: function(question) {
@@ -15,12 +25,14 @@ var ChooseQuestionListView = Backbone.View.extend({
       clickQuestionEventName: this.clickQuestionEventName
     })
     .bind("clickedQuestion", this.onClickQuestion);
-    var questionEl = view.render().el;
-    $(this.el).append(questionEl);
+
+
+    $(this.el).append(view.render().el);
 	},
 
   // event handlers
   onClickQuestion: function(e) {
+    console.log('ChooseQuestionListView:onClickQuestion');
     this.trigger("clickedQuestion", e);
   }
 });

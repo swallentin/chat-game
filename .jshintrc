@@ -1,0 +1,29 @@
+{
+
+  "node": true,
+  "es5": true,
+  "browser": true,
+  "strict": false,
+  "unused": false,
+  "laxcomma": true
+
+  // "boss": false,
+  // "curly": false,
+  // "debug": false,
+  // "devel": false,
+  // "eqeqeq": true,
+  // "evil": true,
+  // "forin": false,
+  // "immed": true,
+  // "newcap": true,
+  // "noarg": true,
+  // "noempty": false,
+  // "nonew": false,
+  // "nomen": false,
+  // "onevar": true,
+  // "plusplus": false,
+  // "regexp": false,
+  // "undef": true,
+  // "sub": true,
+  // "white": true,
+}

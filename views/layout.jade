@@ -1,4 +1,4 @@
-include mixins
+include mixins/mixins
 
 !!!
 html
@@ -6,26 +6,21 @@ html
     title= title
     link(rel='stylesheet', href='/css/reset.css')
     link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
+    //- link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
     link(rel='stylesheet', href='/css/prettify.css')
     link(rel='stylesheet', href='/css/app.css')
   body
-    mixin navigation()
-
+    block navigation
     block content
-    #wami
- 
+     
     mixin liveReload
-    script(src='/ui/jquery/jquery-min.js')
-    script(src='/ui/bootstrap/bootstrap-min.js')
-    script(src='/ui/prettify/prettify-min.js')
-    script(src='/ui/underscore/underscore-min.js')
-    script(src='/ui/handlebars/handlebars-min.js')
-    script(src='/ui/backbone/backbone-min.js')
-    script(src='/ui/swfobject/swfobject.js')
-    script(src='/ui/wami-recorder/recorder.js')
+    script(src='/chat-game-ui/jquery/jquery-min.js')
+    script(src='/chat-game-ui/bootstrap/bootstrap-min.js')
+    script(src='/chat-game-ui/underscore/underscore-min.js')
+    script(src='/chat-game-ui/handlebars/handlebars-min.js')
+    script(src='/chat-game-ui/backbone/backbone.js')
+    script(src='/chat-game-ui/swfobject/swfobject.js')
+    script(src='/chat-game-ui/wami-recorder/recorder.js')
     block scripts
-    script(src='/ui/chat-game-ui.js')
 
-    
     include templates/game.jade

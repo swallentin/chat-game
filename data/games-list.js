@@ -1,8 +1,8 @@
-module.exports = {
+module.exports = 
 	[{
 		id: 0,
 		name: "Game #1",
-		
+
 		player_a: {
 			id: 0,
 			name: "Chuck"
@@ -11,7 +11,7 @@ module.exports = {
 			id: 1,
 			name: "Lore"
 		}
-	},{
+	}, {
 		id: 0,
 		name: "Game #2",
 		player_a: {
@@ -22,5 +22,4 @@ module.exports = {
 			id: 1,
 			name: "Lore"
 		}
-	}]
-}
+	}];

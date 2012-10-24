@@ -10,6 +10,7 @@ var GameListView = Backbone.View.extend({
 		return this;
 	},
   addItem: function(game) {
+    // console.log(game);
     var view = new GameListItemView({
       model: game
     });

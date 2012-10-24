@@ -1,51 +1,65 @@
-var Games = Backbone.Collection.extend({
-  model: Game
-});
-var Questions = Backbone.Model.extend({
-  model: Game
-});
-var Todos = Backbone.Collection.extend({
-  url: "/todos",
-  model: Todo,
-  parse: function(res) {
-    return res.response.todos;
-  },
-  comparator: function (todo) {
-    return todo.get("priority");
-  }
-});
 var Game = Backbone.Model.extend({
+  idAttribute: '_id',
+  urlRoot: '/games'
 });
-var Todo = Backbone.Model.extend({
-	defaults: {
-		"priority": 3
-	},
-	validate: function(attrs) {
-		if(!attrs.title) {
-			return "cannot have an empty title"
-		}
-	}
+var Question = Backbone.Model.extend({
+});
+var Player = Backbone.Model.extend({
+  urlRoot: '/users'
+});
+var Games = Backbone.Collection.extend({
+  url: '/games',
+  model: Game
+});
+var Players = Backbone.Collection.extend({
+  model: Player
+});
+var Questions = Backbone.Collection.extend({
+  model: Question,
+  url: function() {
+    return function() {
+      console.log(this.urlRoot + this.get('id'));
+      return this.urlRoot + this.get('id');
+    };
+  },
+  parse: function(res) {
+    return res.alternatives;
+  }
 });
 var AppRouter = Backbone.Router.extend({
   vent: _.extend({}, Backbone.Events),
   routes: {
-    "": "index",
+    // TODO: index should games-list
     "game/:id": "game",
+    "": "index"
   },
   index: function() {
-    console.log("index");
+    var myGames = new Games();
+    myGames.fetch({
+      success: function() {
+        var gameListView = new GameListView({
+          collection: myGames
+        });
+        $("#game").html(gameListView.render().el);
+      }
+    });
+
   },
   game: function(id) {
-    console.log("game/" + id);
-    // var game = new Game({
-    //   id: id
-    // });
-
-    var gameView = new GameView({
-      el: $("#game"),
-      vent: this.vent
+    var that = this;
+    var game = new Game({
+      _id: id
     });
-    gameView.render();
+    game.fetch({
+      success: function(model, response) {
+        var gameView = new GameView({
+          el: $("#game"),
+          vent: that.vent,
+          model: model
+        });
+        $("#game").html(gameView.render().el);
+      }
+    });
   }
 });
 var ChooseQuestionListView = Backbone.View.extend({
@@ -55,7 +69,17 @@ var ChooseQuestionListView = Backbone.View.extend({
     _.bindAll(this);
 	},
 	render: function() {
-    this.collection.each(this.addQuestion);
+    
+    var questions = new Questions({}),
+        that = this;
+    
+    questions.fetch({
+      url: '/paragraphs/' + that.model.get('currentParagraph')._id,
+      success: function() {
+        questions.each(that.addQuestion);
+      }
+    });
+
     return this;
 	},
 	addQuestion: function(question) {
@@ -65,12 +89,14 @@ var ChooseQuestionListView = Backbone.View.extend({
       clickQuestionEventName: this.clickQuestionEventName
     })
     .bind("clickedQuestion", this.onClickQuestion);
-    var questionEl = view.render().el;
-    $(this.el).append(questionEl);
+
+
+    $(this.el).append(view.render().el);
 	},
 
   // event handlers
   onClickQuestion: function(e) {
+    console.log('ChooseQuestionListView:onClickQuestion');
     this.trigger("clickedQuestion", e);
   }
 });
@@ -110,12 +136,11 @@ var ChooseQuestionView = Backbone.View.extend({
 			view: this,
 			model: this.model
 		};
-		console.log("ChooseQuestionView:onClickedQuestion");
 
 		this.trigger("clickedQuestion", eventMessage );
 	}
 
-})
+});
 
 
 
@@ -250,22 +275,23 @@ var GameView = Backbone.View.extend({
 	initialize: function (options) {
 		this.vent = options.vent || {};
 		this.playingView = new GamePlayingView({
-			vent: this.vent
+			vent: this.vent,
+      model: this.model
 		});
 	},
   render: function () {
-  	$(this.el).html(this.playingView.render().el);
-    return this;
+    return this.playingView.render();
   }
 });
 var GameListItemView = Backbone.View.extend({
-  className: 'item game-list-item',
-  tagName: 'LI',
+  tagName: "LI",
+  className: "item game-list-item",
   initialize: function() {
     this.template = Handlebars.compile( $("#GameListItemView-template").html() );
   },
   render: function() {
-    $(this.el).html(this.template(this.model.toJSON()));
+    var output = this.template(this.model.toJSON());
+    $(this.el).html(output);
     return this;
   }
 });
@@ -281,6 +307,7 @@ var GameListView = Backbone.View.extend({
 		return this;
 	},
   addItem: function(game) {
+    // console.log(game);
     var view = new GameListItemView({
       model: game
     });
@@ -314,34 +341,8 @@ var GameActionView = Backbone.View.extend({
 		this.vent.on("/game/#:id/listening", this.renderListening);
 		this.vent.on("/game/#:id/speaking", this.renderSpeaking);
 
-
-		var model1 = new Backbone.Model({
-			id: 0,
-			text: "Lorem ipsum dolor sit amet.",
-			difficulty: 1
-		});
-
-		var model2 = new Backbone.Model({
-			id: 1,
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-			difficulty: 2
-		});
-
-		var model3 = new Backbone.Model({
-			id: 2,
-			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed purus nulla.",
-			difficulty: 3
-		});
-
-		var collection = new Backbone.Collection([model1, model2, model3]);
-
-		this.game = new Backbone.Model({
-			questions: collection
-		});
-
 	},
-	onLoad: function() {
-	},
+	onLoad: function() {},
 	render: function() {
 		$(this.el).html(this.template(this.model.toJSON()));
 		return this;
@@ -350,21 +351,19 @@ var GameActionView = Backbone.View.extend({
 		$(this.el).find("#content").html(this.activeView.render().el);
 	},
 	renderListening: function() {
-		console.log("GameActionView:renderListening")
+		console.log("GameActionView:renderListening");
 		this.activeView = new PlayingListeningView({
 			vent: this.vent,
-			model: this.game
-		})
-		.bind("next", this.onFinishedListening );
+			model: this.model
+		}).bind("next", this.onFinishedListening);
 		this.renderActiveView();
 	},
 	renderSpeaking: function() {
-		console.log("GameActionView:renderSpeaking")
+		console.log("GameActionView:renderSpeaking");
 		this.activeView = new PlayingSpeakingView({
 			vent: this.vent,
-			model: this.game
-		})
-		.bind("next", this.onFinishedSpeaking );;
+			model: this.model
+		}).bind("next", this.onFinishedSpeaking);
 		this.renderActiveView();
 	},
 	onFinishedListening: function() {
@@ -375,46 +374,28 @@ var GameActionView = Backbone.View.extend({
 	}
 });
 var GameOverView = Backbone.View.extend({
-	className: "game-over",
-	initialize: function (options) {
-		this.vent = options.vent || {};
-	}
+  className: "game-over",
+  initialize: function(options) {
+    this.vent = options.vent || {};
+  }
 });
 var GamePlayingView = Backbone.View.extend({
 	className: "playing",
 	tagName: "div",
 	initialize: function(options) {
 		this.vent = options.vent || {};
-
-		var me = new Backbone.Model({
-			name: "My Name",
-			imgUrl: "/img/profiles/c.jpg"
-		});
-
-		var game = new Backbone.Model({
-      topic: {
-        imgUrl: '/img/profiles/a.jpg',
-        description: 'A topic',
-      },
-      playerA: {
-        profileImgUrl: '/img/profiles/b.jpg'
-      },
-      playerB: {
-        profileImgUrl: '/img/profiles/c.jpg'
-      },
-      score: 21
-    });
+    var self = this;
 
 		this.statusView = new GameStatusView({
 			vent: this.vent,
-			model: game,
+			model: self.model,
 			template: $("#GameStatusView-template").html()
 		});
 
 		this.actionView = new GameActionView({
 			vent: this.vent,
 			template: $("#GameActionView-template").html(),
-			model: me
+			model: self.model
 		});
 
 	},
@@ -506,7 +487,7 @@ var ChooseRightAnswerView = Backbone.View.extend({
 	},
 	onClickedQuestion: function(data) {
 		console.log("ChooseRightAnswerView:onClickedQuestion");
-
+		
 		// .unsubscribe()
 		// unsubscribe from event, to prevent multiple calls
 		this.questionList.off("clickedQuestion", this.onClickedQuestion);
@@ -594,7 +575,7 @@ var PlayingChooseWhatToSay = Backbone.View.extend({
 		this.clickedQuestionEventName = options.clickedQuestionEventName || "/game/speaking/clickedAnswer";
 
 		this.questionList = new ChooseQuestionListView({
-			collection: this.model.get("questions"),
+			model: this.model,
 			vent: this.vent,
 			clickedQuestionEventName: this.clickedQuestionEventName
 		})
@@ -605,8 +586,9 @@ var PlayingChooseWhatToSay = Backbone.View.extend({
 		$(this.el).append(this.template({
 			message: "Choose what to say!"
 		}));
-
+		
 		$(this.el).append(this.questionList.render().el);
+
 		return this;
 	},
 
@@ -636,7 +618,6 @@ var PlayingNextTurnView = Backbone.View.extend({
 });
 var PlayingSpeakingView = Backbone.View.extend({
 	// Element settings
-	
 	// View initialization and render
 	initialize: function(options) {
 
@@ -645,7 +626,6 @@ var PlayingSpeakingView = Backbone.View.extend({
 
 		// setup event stuff
 		_.bindAll(this);
-		this.views = [];
 
 		this.on("onload", this.onLoad);
 		this.trigger("onload");
@@ -656,17 +636,26 @@ var PlayingSpeakingView = Backbone.View.extend({
 		return this;
 	},
 	onLoad: function() {
+		// TODO: Insert get paragraph options here
 		var choose = new PlayingChooseWhatToSay({
 			vent: this.vent,
 			template: $("#PlayingChooseWhatToSay-template").html(),
 			model: this.model
-		})
-		.bind("clickedQuestion", this.onClickedQuestion);
+		}).bind("clickedQuestion", this.onClickedQuestion);
 		this.activeView = choose;
 	},
+
 	// Events
 	onClickedQuestion: function(e) {
 		console.log("PlayingSpeakingView:onClickedQuestion");
+
+		// post the selected paragraph to the api
+
+		// console.log(this.model);
+		// this.model.set("currentParagraphDefinition", e.model.id);
+		this.model.save({
+			currentParagraphDefinition: e.model.id
+		});
 
 		var record = new RecordTranslationView({
 			vent: this.vent,
@@ -674,7 +663,6 @@ var PlayingSpeakingView = Backbone.View.extend({
 			model: e.model
 		})
 		.bind("successfull", this.onRecordingSent);
-
 		this.activeView = record;
 		this.render();
 	},
@@ -682,9 +670,8 @@ var PlayingSpeakingView = Backbone.View.extend({
 		var nextturn = new PlayingNextTurnView({
 			vent: this.vent,
 			template: $("#PlayingNextTurnView-template").html(),
-		})
-		.bind("next", this.onNextTurnFinished);
-		
+		}).bind("next", this.onNextTurnFinished);
+
 		this.activeView = nextturn;
 		this.render();
 	},
@@ -750,41 +737,6 @@ var RecordTranslationView = Backbone.View.extend({
 		this.trigger("successfull");
 	}
 });
-var TodoListView = Backbone.View.extend({
-  tagName: "UL",
-  className: "todos",
-  initialize: function() {
-    _.bindAll(this, "addTodo");
-  },
-  render: function() {
-    this.collection.each(this.addTodo);
-  },
-  addTodo: function(todo) {
-    var view = new TodoView({
-      model: todo
-    })
-    var todoEl = view.render().el;
-    $(this.el).append(todoEl);
-  }
-});
-var TodoView = Backbone.View.extend({
-  tagName: "li",
-  initialize: function(options) {
-    _.bindAll(this, "edit");
-    this.template = Handlebars.compile(options.template || "");
-  },
-  render: function() {
-    $(this.el).html(this.template(this.model.toJSON()));
-    return this;
-  },
-  events: {
-    "click a.edit": "edit"
-  },
-  edit: function() {
-    this.$("h2").fadeOut();
-    this.$("input.edit").fadeIn();
-  }
-});
 var App = function () {
   var initialize = function () {
     var appRouter = new AppRouter();
@@ -794,149 +746,9 @@ var App = function () {
     initialize: initialize
   };
 };
+Backbone.Model.prototype.idAttribute = "_id";
+
 $(document).ready(function() {
-
   App().initialize();
-
-  console.log('testing');
 });
-var MyApp = (function (Backbone, $, _, Handlebars) {
-  console.log("My App");
-  return {
-    vent: _.extend({}, Backbone.Events),
-    renderQuestionsView: function() {
-      var model1 = new Backbone.Model({
-        id: 0,
-        text: "Lorem ipsum dolor sit amet.",
-        difficulty: 1
-      });
-      var model2 = new Backbone.Model({
-        id: 1,
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        difficulty: 2
-      });
-      var model3 = new Backbone.Model({
-        id: 2,
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sed purus nulla.",
-        difficulty: 3
-      });
 
-      var view = new ChooseQuestionView({
-        model: model1,
-        vent: this.vent
-      });
-      var collection = new Backbone.Collection([model1, model2, model3])
-      var listView = new ChooseQuestionListView({
-        collection: collection,
-        vent: this.vent,
-        el: $(".sentance-list")
-      });
-
-      this.vent.on("choose-answer", function (message) {
-        console.log(message.toJSON());
-      });
-
-      listView.render();
-    },
-    renderAudioPlayer: function() {
-      var audioPlayer = new SimpleAudioPlayerView({
-        el: $(".audio-player"),
-        model: new Backbone.Model({
-          url: "http://dev.local:3000/game/recording/1337"
-        })
-      })
-      .render();
-    },
-    renderAudioRecorder: function() {
-      var audioRecorder = new SimpleAudioRecorderView({
-        el: $(".audio-recorder"),
-        model: new Backbone.Model({
-          recordingUrl: "http://dev.local:3000/game/recording/1337",
-          playingUrl: "http://dev.local:3000/game/recording/1337"
-        })
-      }).render();
-    },
-    renderGameList: function() {
-    var player1 = new Backbone.Model({
-        id: 0,
-        name: "chuckzo"
-      });
-
-      var player2 = new Backbone.Model({
-        id: 1,
-        name: "johnzo"
-      });
-
-      var game1 = new Backbone.Model({
-        id: 0,
-        round: 2,
-        score: 11,
-        title: "Hello world",
-        players: new Backbone.Collection(),
-        opponent: "test"
-      });
-      var game2 = new Backbone.Model({
-        id: 1,
-        round: 5,
-        score: 15,
-        title: "Hello world 2",
-        players: new Backbone.Collection(),
-        opponent: "test2"
-      });
-
-      game1.get('players').add([player1, player2]);
-      game2.get('players').add([player1, player2]);
-
-      var games = new Backbone.Collection([game1, game2]);
-
-      var gameListView = new GameListView({
-        collection: games
-      });
-
-      $(".game-list").html( gameListView.render().el );
-
-    },
-    renderGameListItem: function() {
-    var player1 = new Backbone.Model({
-        id: 0,
-        name: "chuckzo"
-      });
-
-      var player2 = new Backbone.Model({
-        id: 1,
-        name: "johnzo"
-      });
-
-      var game1 = new Backbone.Model({
-        id: 0,
-        round: 2,
-        score: 11,
-        title: "Hello world",
-        players: new Backbone.Collection(),
-        opponent: "test"
-      });
-
-      game1.get('players').add([player1, player2]);
-
-      var games = new Backbone.Collection([game1]);
-
-      var gameListItemView = new GameListItemView({
-        model: game1
-      });
-
-      $(".game-list-item").html(gameListItemView.render().el);
-    },
-    init: function() {
-      // this.renderQuestionsView();
-      // this.renderAudioRecorder();
-      // this.renderAudioPlayer();
-      this.renderGameList();
-      this.renderGameListItem();
-    }
-  }
-
-})(Backbone, $, _, Handlebars);
-
-$(document).ready(function(){
-  MyApp.init();
-});

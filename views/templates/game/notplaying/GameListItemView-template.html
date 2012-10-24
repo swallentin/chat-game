@@ -1,12 +1,13 @@
 <script type="text/template" id="GameListItemView-template">
   <i class="icon-star icon-yellow icon"></i>
+  <h2 class="score">{{score}}</h2>
   <div class="info game-info">
     <h2>
-      <a href="/#/game/{{id}}">{{title}}</a>
+      <a href="/#/game/{{_id}}">{{dialogue.topic}}</a>
     </h2>
-    <p>you vs {{opponent}}</p>
+    <p>{{player_a.name}} vs {{player_b.name}}</p>
   </div>
-  <a href="/#/game/{{id}}"
+  <a href="/#/game/{{_id}}"
     <i class="icon-chevron-right"></i>
   </a>
 </script>

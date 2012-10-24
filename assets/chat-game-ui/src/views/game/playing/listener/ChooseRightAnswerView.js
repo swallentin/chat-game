@@ -47,7 +47,7 @@ var ChooseRightAnswerView = Backbone.View.extend({
 	},
 	onClickedQuestion: function(data) {
 		console.log("ChooseRightAnswerView:onClickedQuestion");
-
+		
 		// .unsubscribe()
 		// unsubscribe from event, to prevent multiple calls
 		this.questionList.off("clickedQuestion", this.onClickedQuestion);

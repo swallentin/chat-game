@@ -2,11 +2,11 @@ var GameView = Backbone.View.extend({
 	initialize: function (options) {
 		this.vent = options.vent || {};
 		this.playingView = new GamePlayingView({
-			vent: this.vent
+			vent: this.vent,
+      model: this.model
 		});
 	},
   render: function () {
-  	$(this.el).html(this.playingView.render().el);
-    return this;
+    return this.playingView.render();
   }
 });

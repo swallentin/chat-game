@@ -3,36 +3,18 @@ var GamePlayingView = Backbone.View.extend({
 	tagName: "div",
 	initialize: function(options) {
 		this.vent = options.vent || {};
-
-		var me = new Backbone.Model({
-			name: "My Name",
-			imgUrl: "/img/profiles/c.jpg"
-		});
-
-		var game = new Backbone.Model({
-      topic: {
-        imgUrl: '/img/profiles/a.jpg',
-        description: 'A topic',
-      },
-      playerA: {
-        profileImgUrl: '/img/profiles/b.jpg'
-      },
-      playerB: {
-        profileImgUrl: '/img/profiles/c.jpg'
-      },
-      score: 21
-    });
+    var self = this;
 
 		this.statusView = new GameStatusView({
 			vent: this.vent,
-			model: game,
+			model: self.model,
 			template: $("#GameStatusView-template").html()
 		});
 
 		this.actionView = new GameActionView({
 			vent: this.vent,
 			template: $("#GameActionView-template").html(),
-			model: me
+			model: self.model
 		});
 
 	},

@@ -1,3 +1,7 @@
+var Game = Backbone.Model.extend({
+	idAttribute: "_id"
+});
+
 var Games = Backbone.Collection.extend({
   model: Game
 });
@@ -13,8 +17,6 @@ var Todos = Backbone.Collection.extend({
   comparator: function (todo) {
     return todo.get("priority");
   }
-});
-var Game = Backbone.Model.extend({
 });
 var Todo = Backbone.Model.extend({
 	defaults: {

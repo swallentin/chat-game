@@ -1,0 +1,6 @@
+*.css
+*.jade
+test/*
+public/*
+assets/*
+data/*

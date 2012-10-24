@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1 Welcome to Login
+  
+  - each user in users
+    a(href='/login/'+user._id, class='btn btn-primary')= user.name

@@ -20,15 +20,25 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: [
-          pathToUI + "src/collections/**/*.js",
           pathToUI + "src/models/**/*.js",
+          pathToUI + "src/collections/**/*.js",
           pathToUI + "src/routers/**/*.js",
           pathToUI + "src/views/**/*.js",
           pathToUI + "src/app.js",
-          pathToUI + "src/main.js",
-          pathToUI + "src/dev.js",
+          pathToUI + "src/main.js"
         ],
         dest: pathToUI + "lib/chat-game-ui.js"
+      },
+      dev: {
+        src: [
+          pathToUI + "src/models/**/*.js",
+          pathToUI + "src/collections/**/*.js",
+          pathToUI + "src/routers/**/*.js",
+          pathToUI + "src/views/**/*.js",
+          pathToUI + "src/dev.js",
+          pathToUI + "src/main.js"
+        ],
+        dest: pathToUI + "lib/chat-game-ui-dev.js"
       }
     },
 
